@@ -2,9 +2,8 @@
  *  Test code for node-l10n.
  **/
 
-var L10n = require('l10n');
-var L10n_Browser = require('../l10n-browser.js');
-var outputElt = null; // element to write output into.
+var l10n = null;
+var outputElt = null;
 
 function appendElt(elt, type, content) {
   // add an element to elt and fill it.
@@ -44,9 +43,9 @@ function testLanguage(lang, callback) {
 
 window.onload = function() {
   requirejs(['lib/l10n','lib/l10n-browser'],
-      function(L10n, L10n-Browser) {
+      function(L10n, L10n_Browser) {
         // initialise L10n with the browser adapter.
-        var l10n = new L10n(new L10n_Browser());
+        l10n = new L10n(new L10n_Browser());
         // do the tests.
         outputElt = document.getElementById('output'); 
         testLanguage('en', function() {
