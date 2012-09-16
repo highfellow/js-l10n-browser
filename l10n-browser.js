@@ -1,9 +1,7 @@
 /**
- * file adapter for node-l10n.
+ * Browser adapter for js-l10n.
  * (C) 2012 Andrew Baxter <andy@highfellow.org>
  **/
-
-url = require('url');
 
 function L10n_Browser(baseURL) {
   // a class which l10n can use to get the resource loader.
@@ -29,11 +27,14 @@ function L10n_Browser(baseURL) {
       xhr.send(null);
     });
   }
-  if (baseURL !== undefined) {
+  if (typeof(baseURL) == 'string') {
     this.baseURL = baseURL;
   } else {
     this.baseURL = ''; // base URL defaults to the current document path.
   }
 }
 
-module.exports = L10n_Browser;
+define([], // no required modules.
+    function() {
+      return L10n_Browser;
+    })
