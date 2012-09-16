@@ -43,13 +43,14 @@ function testLanguage(lang, callback) {
 }
 
 window.onload = function() {
-  outputElt = document.getElementById('output'); 
-  // do the tests.
-  testLanguage('en', function() {
-    testLanguage('de');
-  });
+  requirejs(['lib/l10n','lib/l10n-browser'],
+      function(L10n, L10n-Browser) {
+        // initialise L10n with the browser adapter.
+        var l10n = new L10n(new L10n_Browser());
+        // do the tests.
+        outputElt = document.getElementById('output'); 
+        testLanguage('en', function() {
+          testLanguage('de');
+        });
+      });
 }
-
-// initialise L10n with the file adapter.
-var l10n = new L10n(new L10n_Browser());
-
