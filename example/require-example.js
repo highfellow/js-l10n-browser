@@ -8,7 +8,7 @@
 define(function(require) {
   var l10n = require('lib/l10n');
   var l10nBrowser = require('lib/l10n-browser');
-  var getString = require('getString');
+  var getString = require('get-string');
   var outputElt = null;
 
   function appendElt(elt, type, content) {
@@ -46,6 +46,7 @@ define(function(require) {
       console.log('Failed to load data.properties');
     });
   }
+
   l10n.setAdapter(l10n_browser, {baseURL: 'locales/'});
   window.onload = function() {
     // do the tests.
