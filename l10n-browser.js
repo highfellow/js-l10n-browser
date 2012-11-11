@@ -3,13 +3,19 @@
  * (C) 2012 Andrew Baxter <andy@highfellow.org>
  **/
 
-function L10n_Browser(baseURL) {
+var l10n_browser = {
   // a class which l10n can use to get the resource loader.
   // baseURL is optionally a non-standard base URL to use when retrieving resources from relative paths.
-  this.getLoader = function() {
+  getLoader: function(options) {
+    var baseURL;
+    if (typeof(options) == 'object' && typeof(options.baseURL) == 'string') {
+      baseURL = options.baseURL;
+    } else {
+      baseURL = ''; // base URL defaults to the current document path.
+    }
     return(function(path, success, failure, async) {
       var xhr = new XMLHttpRequest();
-      xhr.open('GET', path, async);
+      xhr.open('GET', baseURL + path, async);
       if (xhr.overrideMimeType) {
         xhr.overrideMimeType('text/plain; charset=utf-8');
       }
@@ -27,14 +33,9 @@ function L10n_Browser(baseURL) {
       xhr.send(null);
     });
   }
-  if (typeof(baseURL) == 'string') {
-    this.baseURL = baseURL;
-  } else {
-    this.baseURL = ''; // base URL defaults to the current document path.
-  }
 }
 
 define([], // no required modules.
     function() {
-      return L10n_Browser;
+      return l10n_browser;
     })

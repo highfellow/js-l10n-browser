@@ -4,6 +4,7 @@
 
 var l10n = null;
 var outputElt = null;
+var getString = null;
 
 function appendElt(elt, type, content) {
   // add an element to elt and fill it.
@@ -17,8 +18,8 @@ function appendElt(elt, type, content) {
 function repeat(elt,adjKey) {
   var adj;
   for (var n = 0; n < 4; n++) {
-    adj=l10n.get(adjKey, {'n':n}, 'colour');
-    appendElt(elt,'li',l10n.get('phrase',{'n':n, 'adj':adj}, 'brown fox phrase'));
+    adj=getString(adjKey, {'n':n}, 'colour');
+    appendElt(elt,'li',getString('phrase',{'n':n, 'adj':adj}, 'brown fox phrase'));
   }
 }
 
@@ -42,10 +43,10 @@ function testLanguage(lang, callback) {
 }
 
 window.onload = function() {
-  requirejs(['lib/l10n','lib/l10n-browser'],
-      function(L10n, L10n_Browser) {
+  requirejs(['lib/l10n','lib/l10n-browser', 'getString'],
+      function(l10n, l10n_browser, getString) {
         // initialise L10n with the browser adapter.
-        l10n = new L10n(new L10n_Browser());
+        l10n.setAdapter(l10n_browser, {baseURL: 'locales/'}) ;
         // do the tests.
         outputElt = document.getElementById('output'); 
         testLanguage('en', function() {
