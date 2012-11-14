@@ -27,6 +27,11 @@ requirejs(['lib/l10n','lib/l10n-browser', 'get-string'],
     function testLanguage(lang, callback) {
       var h2 = appendElt(outputElt, 'h2', 'Language:' + lang)
       l10n.loadResource('data.properties', lang, function() {
+        template = "\
+<h2>Template test</h2>\
+<p data-l10n-token='tale'>A tale of two <strong>small</strong> brown furry creatures</p>\
+<p>another paragraph</p>";
+        console.log(l10nBrowser.localiseHTML(template, {}));
         var h3 = appendElt(h2, 'h3', 'Usual version');
         var p = appendElt(h2, 'p', '');
         var ul = appendElt(p, 'ul', '');
@@ -42,6 +47,7 @@ requirejs(['lib/l10n','lib/l10n-browser', 'get-string'],
       });
     }
     l10n.setAdapter(l10nBrowser, {baseURL: 'locales/'});
+    l10n.setMarkFallbacks();
 
     window.onload = function() {
       // initialise L10n with the browser adapter.
