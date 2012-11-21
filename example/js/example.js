@@ -28,12 +28,11 @@ requirejs(['l10n','l10n-browser', 'get-string'],
       var h2 = appendElt(outputElt, 'h2', 'Language:' + lang)
       l10n.loadResource('data.properties', lang, function() {
         template = "\
-<h2>Template test</h2>\
-<p data-l10n=\"tale\">A tale of two <strong>small</strong> brown furry creatures</p>\
-<p>another paragraph</p>";
-        console.log(l10nBrowser.localiseHTML(template, {}));
-        var h3 = appendElt(h2, 'h3', 'Usual version');
+<p data-l10n=\"tale\">A tale of two <strong>small</strong> brown furry <a data-l10n=\"creatures\" href=\"http://en.wikipedia.org/wiki/Legendary_creature\">creatures</a>.</p>";
         var p = appendElt(h2, 'p', '');
+        p.innerHTML = l10nBrowser.localiseHTML(template, {});
+        var h3 = appendElt(h2, 'h3', 'Usual version');
+        p = appendElt(h2, 'p', '');
         var ul = appendElt(p, 'ul', '');
         repeat(ul, 'brown');
         h3 = appendElt(h2, 'h3', 'With parameter substitution');
