@@ -46,9 +46,8 @@ define(['l10n'],
         function parse(html, l10nArgs, allTags, depth) {
           // parse the html in html, looking only for l10n tags if allTags is false.
           // the results are added to result.
-          var index, match, token, name, contents, result, endTag, l10nGet, ret, text;
+          var index, match, token, name, contents, result, endTag, l10nGet, ret;
           if (depth > 10) throw new Error("max depth exceeded");
-          console.log("parse called with html:", html, "l10nArgs:", l10nArgs, "allTags:", allTags, "depth:", depth);
           result = ""; endTag = "";
           while ((index = findTag(html, allTags)) != -1) {
             match = html.slice(index).match(anytag);
@@ -59,19 +58,15 @@ define(['l10n'],
               endTag = match[0];
               break;
             }
-            console.log('index:', index, 'match:', match);
             name = match[1];
-            console.log('tag name:', name, 'result:', result, 'html:', html);
             if (match[0].indexOf('data-l10n') != -1) {
               // it's an l10n tag so localise it
               match = match[0].match(l10ntag);
               token = match[2];
-              console.log('token:', token);
               // call self recursively.
               contents = parse(html, l10nArgs, true, depth + 1);
               l10nArgs = contents.l10nArgs;
               l10nGet = match[0] + l10n.get(token, l10nArgs, contents.result) + contents.endTag;
-              console.log("l10nGet:", l10nGet);
               result += l10nGet;
               l10nArgs[token] = l10nGet;
               html = contents.html;
@@ -90,11 +85,9 @@ define(['l10n'],
             'l10nArgs': l10nArgs,
             'endTag': endTag
           }
-          console.log("ret:", ret);
           return ret;
         }
         
-        console.log('parsing template');
         ret = parse(html, options, false, 0);
         return ret.result + ret.html;
       }

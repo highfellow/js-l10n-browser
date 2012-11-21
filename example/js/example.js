@@ -27,8 +27,7 @@ requirejs(['l10n','l10n-browser', 'get-string'],
     function testLanguage(lang, callback) {
       var h2 = appendElt(outputElt, 'h2', 'Language:' + lang)
       l10n.loadResource('data.properties', lang, function() {
-        template = "\
-<p data-l10n=\"tale\">A tale of two <strong>small</strong> brown furry <a data-l10n=\"creatures\" href=\"http://en.wikipedia.org/wiki/Legendary_creature\">creatures</a>.</p>";
+        template = "<p data-l10n=\"tale\">A tale of two <strong>small</strong> brown furry <a data-l10n=\"creatures\" href=\"http://en.wikipedia.org/wiki/Legendary_creature\">creatures</a>.</p>";
         var p = appendElt(h2, 'p', '');
         p.innerHTML = l10nBrowser.localiseHTML(template, {});
         var h3 = appendElt(h2, 'h3', 'Usual version');
