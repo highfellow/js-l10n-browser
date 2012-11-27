@@ -45,7 +45,7 @@ requirejs(['l10n','l10n-browser', 'get-string'],
       });
     }
     l10n.setAdapter(l10nBrowser, {baseURL: 'locales/'});
-    l10n.setMarkFallbacks();
+    l10n.setMarkStrings();
 
     window.onload = function() {
       // initialise L10n with the browser adapter.
